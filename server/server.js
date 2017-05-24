@@ -1,3 +1,5 @@
+const HTTP_PORT = process.env.PORT || 3000;
+
 var http = require("http");
 var server = http.createServer(function(request, response) {
   response.writeHead(200, {"Content-Type": "text/html"});
@@ -12,7 +14,7 @@ var server = http.createServer(function(request, response) {
   response.end();
 });
 
-server.listen(80);
+server.listen(HTTP_PORT);
 console.log("Server is listening");
 
 // // const HTTPS_PORT = 8000;
