@@ -56,6 +56,68 @@ var server = http.createServer(handleRequest);
 
 server.listen(HTTP_PORT);
 server.timeout = 1000;
+
+var wss = new WebSocket.Server({
+    server: httpsServer,
+    clientTracking: true,
+});
+
+wss.on('connection', function(ws) {
+    ws.on('message', function(message) {
+        var msg = JSON.parse(message);
+        switch (msg.type) {
+            case TYPE_INITIAL_HANDSHAKE:
+                //clients[msg.id] = ws;
+                console.log("New handshake from " + msg.id + " at " + msg.date);
+                break;
+
+            case TYPE_SDP_CONNECTION:
+                wss.broadcast(message); //todo - sent to the correct client 
+                break;
+
+            case TYPE_ICE_INFO:
+                wss.broadcast(message);
+                break;
+
+            case TYPE_BITRATE_CHANGED_INFO:
+                wss.broadcast(message);
+                break;
+
+            case TYPE_CHAT_MESSAGE:
+                wss.broadcast(message);
+                break;
+
+            case TYPE_REQUEST_OFFER:
+                wss.broadcast(message);
+                break;
+        }
+    });
+
+    ws.on('close', function(code) {
+        //delete clients
+        console.log("Connection closed by " + ws + " with code " + code);
+    });
+});
+
+wss.broadcast = function(data) {
+    var sender = (data.id) ? data.id : "unknown_id";
+    this.clients.forEach(function(client) {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(data);
+        }
+    });
+};
+
+function onIncomingMessage(message) {
+    var msg = JSON.parse(message);
+    switch (msg.type) {
+        case TYPE_INITIAL_HANDSHAKE:
+            //clients[] = 
+            console.log("New handshake from " + msg.id + " at " + msg.date);
+            break;
+    }
+}
+
 console.log("Server is listening");
 
 // // const HTTPS_PORT = 8000;
