@@ -1,3 +1,6 @@
+const fs = require('fs');
+var http = require("http");
+
 const HTTP_PORT = process.env.PORT || 3000;
 
 var handleRequest = function(request, response) {
@@ -42,7 +45,6 @@ var handleRequest = function(request, response) {
     }
 };
 
-var http = require("http");
 var server = http.createServer(handleRequest);
 
 server.listen(HTTP_PORT);
