@@ -62,7 +62,7 @@ var handleRequest = function(request, response) {
     }
 };
 
-var httpsServer = https.createServer(serverConfig, handleRequest);
+var httpsServer = https.createServer(handleRequest);
 httpsServer.listen(HTTPS_PORT);
 httpsServer.timeout = 4000;
 // Create a server for handling websocket calls
