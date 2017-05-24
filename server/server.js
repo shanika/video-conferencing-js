@@ -58,7 +58,7 @@ server.listen(HTTP_PORT);
 server.timeout = 1000;
 
 var wss = new WebSocket.Server({
-    server: httpsServer,
+    server: server,
     clientTracking: true,
 });
 
