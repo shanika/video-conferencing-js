@@ -1,7 +1,14 @@
 const fs = require('fs');
 var http = require("http");
+const WebSocket = require('ws');
 
 const HTTP_PORT = process.env.PORT || 3000;
+const TYPE_INITIAL_HANDSHAKE = 0;
+const TYPE_SDP_CONNECTION = 1;
+const TYPE_ICE_INFO = 2;
+const TYPE_BITRATE_CHANGED_INFO = 3;
+const TYPE_CHAT_MESSAGE = 4;
+const TYPE_REQUEST_OFFER = 5;
 
 var handleRequest = function(request, response) {
     console.log("Trying to serve : " + request.url);
@@ -48,6 +55,7 @@ var handleRequest = function(request, response) {
 var server = http.createServer(handleRequest);
 
 server.listen(HTTP_PORT);
+server.timeout = 1000;
 console.log("Server is listening");
 
 // // const HTTPS_PORT = 8000;
