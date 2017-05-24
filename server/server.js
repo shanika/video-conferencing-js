@@ -1,6 +1,6 @@
 const fs = require('fs');
 var http = require("http");
-const WebSocket = require('ws');
+var WebSocketServer = require("ws").Server
 
 const HTTP_PORT = process.env.PORT || 3000;
 const TYPE_INITIAL_HANDSHAKE = 0;
@@ -57,7 +57,7 @@ var server = http.createServer(handleRequest);
 server.listen(HTTP_PORT);
 server.timeout = 1000;
 
-var wss = new WebSocket.Server({
+var wss = new WebSocketServer({
     server: server,
     clientTracking: true,
 });
