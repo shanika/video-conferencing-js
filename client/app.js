@@ -51,6 +51,9 @@ function pageReady() {
     //serverConnection = new WebSocket('wss://' + window.location.hostname);
     serverConnection = new WebSocket(HOST);
     serverConnection.onmessage = serverOnMessageCallback;
+    serverConnection.onclose = function (event) {
+        console.info(">>>>>>>>>>>>> Sokect closed");
+    }
     serverConnection.onopen = function(event) {
         var msg = {
             "type": TYPE_INITIAL_HANDSHAKE,
