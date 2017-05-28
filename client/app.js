@@ -314,7 +314,10 @@ function onSendChatMessage() {
     textBox.value = "";
 }
 
-setTimeout(function(){ onSendChatMessage(); }, 29000);
+function ping() {
+    onSendChatMessage();
+    setTimeout( function(){ ping(); }, 29000);
+}
 
 function onManualBandwidthSet(val) {
     if (val == -1) {
