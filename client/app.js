@@ -293,6 +293,11 @@ function onChatMessageReceived(data) {
 function onSendChatMessage() {
     var textBox = document.getElementById("chat");
     var message = textBox.value;
+    
+    if(!message) {
+        message = "PING";
+    }
+    
     serverConnection.send(JSON.stringify({
         'type': TYPE_CHAT_MESSAGE,
         'chat': message,
@@ -308,6 +313,8 @@ function onSendChatMessage() {
 
     textBox.value = "";
 }
+
+setTimeout(function(){ onSendChatMessage(); }, 29000);
 
 function onManualBandwidthSet(val) {
     if (val == -1) {
