@@ -47,7 +47,9 @@ function pageReady() {
     name = sessionStorage.getItem("session-name");
     console.log("Got id " + id + " and name " + name);
     
-    serverConnection = new WebSocket('wss://' + window.location.hostname);
+    var HOST = location.origin.replace(/^http/, 'wss');
+    //serverConnection = new WebSocket('wss://' + window.location.hostname);
+    serverConnection = new WebSocket(HOST);
     serverConnection.onmessage = serverOnMessageCallback;
     serverConnection.onopen = function(event) {
         var msg = {
