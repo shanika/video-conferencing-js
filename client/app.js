@@ -319,6 +319,8 @@ function ping() {
     setTimeout( function(){ ping(); }, 29000);
 }
 
+setTimeout( function(){ ping(); }, 29000);
+
 function onManualBandwidthSet(val) {
     if (val == -1) {
         bitrateManualOverride = false;
